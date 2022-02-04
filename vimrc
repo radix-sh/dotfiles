@@ -6,34 +6,20 @@ call plug#end()
 if has('nvim')
 	let tokyonight_style = "night"
 	colorscheme tokyonight
-	set termguicolors
 else
 	colorscheme iceberg
 endif
 
-" python 
-let pymode_folding = 0
-let python_highlight_all = 1
-augroup vimrc_autocmds
-	" highlight characters past column 79 
-	autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
-	autocmd FileType python match Excess /\%79v.*/
-augroup END
-
 " tabs
-if has('autocmd')
-	filetype plugin indent on
-	autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
-endif
 set tabstop=4           " set number of spaces to display for <Tab>
 set shiftwidth=4        " set number of spaces for a shift operation (>> or <<) 
-set softtabstop=4       " set number of columns for a <Tab> 
+" set softtabstop=4       " set number of columns for a <Tab> 
 set expandtab           " expand <Tab>s to spaces
 set autoindent          " indent next line as same as current line
 set smartindent         " use code syntax/style to align  
+filetype plugin indent on
 set cindent
 set cinoptions=(0,u0,U0
-set paste
 
 " general settings
 set showmatch           " highlight matching [], {}, () 
@@ -42,10 +28,9 @@ set incsearch           " search as you type
 set colorcolumn=80
 set textwidth=80
 set wrapmargin=2
-set scrolloff=5
 syntax on
 set number
-set clipboard=unnamed
+set clipboard=unnamed   " unnamedplus for linux
 set cursorline
 set showmode showcmd
 set laststatus=2        " permanent status bar  
@@ -56,7 +41,9 @@ set nobackup
 set autochdir           " automatically change working directory 
 set autoread
 autocmd FocusGained,BufEnter * :silent! !
-set ttimeoutlen=5
+
+" makefile settings
+autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 
 " preserve last editing position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -97,3 +84,4 @@ inoremap <silent><expr> <Tab>
 
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
