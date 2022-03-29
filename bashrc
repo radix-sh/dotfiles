@@ -41,14 +41,33 @@ if type brew &>/dev/null; then
     fi
 fi
 
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
 if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi
 
 if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi
 
 if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi
+
+# aliases
+alias p='python3'
+alias c='gcc -g -Wall -Werror'
+alias killgdb='pkill -9 gdb'
+alias g='gdb -tty=$(tty)'
+alias gauto='gdb -tty=$(tty) --command=auto.gdb'
+alias brewup='brew update && brew upgrade; brew cleanup; brew doctor'
+alias l='ls'
+alias la='ls -a'
+alias lt='ls -lt'
+alias 'lg'='git log --color --graph --pretty --abbrev-commit'
+
+# functions
+function mkcd () {
+    mkdir "$1" && cd "$1"
+}
+
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+
 
 clear
