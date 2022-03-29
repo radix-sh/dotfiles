@@ -1,4 +1,1 @@
-if [ -f ~/.bashrc ]; then
-   source ~/.bashrc
-fi
-
+/Users/radix/.bash_profile
