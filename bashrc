@@ -34,7 +34,6 @@ BASH_SILENCE_DEPRECATION_WARNING=1
 HISTCONTROL=erasedups
 HISTFILESIZE=
 HISTSIZE=
-# PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 export HISTCONTROL HISTFILESIZE HISTSIZE BASH_SILENCE_DEPRECATION_WARNING
 
 # make pinentry work for unlocking GPG keys
@@ -79,7 +78,5 @@ function mkcd () {
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-
-
 
 clear
