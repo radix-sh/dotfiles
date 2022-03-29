@@ -1,12 +1,24 @@
-
-
-
-
 # bashrc 
+
+# prompt
+GREEN="\[\033[0;32m\]"
+CYAN="\[\033[0;36m\]"
+RED="\[\033[0;31m\]"
+PURPLE="\[\033[0;35m\]"
+BROWN="\[\033[0;33m\]"
+BRIGHT_GRAY="\[\033[0;37m\]"
+BRIGHT_BLUE="\[\033[1;34m\]"
+BRIGHT_GREEN="\[\033[1;32m\]"
+BRIGHT_CYAN="\[\033[1;36m\]"
+BRIGHT_RED="\[\033[1;31m\]"
+BRIGHT_PURPLE="\[\033[1;35m\]"
+YELLOW="\[\033[1;33m\]"
+WHITE="\[\033[1;37m\]"
+RESTORE="\[\033[0m\]"
 if [[ $OSTYPE == 'darwin'* ]]; then
-    export PS1="${GREEN}\w${BROWN}$(parse_git_branch)${RESTORE} 🌈 "
+    export PS1="${GREEN}\w${BRIGHT_BLUE}\$(parse_git_branch)${RESTORE} 🌈 "
 else
-    export PS1="\[\033[32m\]\w\[\033[33m\]\[\033[00m\] $ "
+    export PS1="${GREEN}\w${BROWN}${RESTORE} $ "
 fi
 
 # basic config
@@ -22,8 +34,8 @@ BASH_SILENCE_DEPRECATION_WARNING=1
 HISTCONTROL=erasedups
 HISTFILESIZE=
 HISTSIZE=
-PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-export HISTCONTROL HISTFILESIZE HISTSIZE PROMPT_COMMAND BASH_SILENCE_DEPRECATION_WARNING
+# PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export HISTCONTROL HISTFILESIZE HISTSIZE BASH_SILENCE_DEPRECATION_WARNING
 
 # make pinentry work for unlocking GPG keys
 export GPG_TTY=$(tty)
@@ -47,11 +59,7 @@ fi
 
 if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi
 
-if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi
-
-if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi
-
-# aliases
+# bash aliases
 alias p='python3'
 alias c='gcc -g -Wall -Werror'
 alias killgdb='pkill -9 gdb'
@@ -63,7 +71,7 @@ alias la='ls -a'
 alias lt='ls -lt'
 alias 'lg'='git log --color --graph --pretty --abbrev-commit'
 
-# functions
+# bash functions
 function mkcd () {
     mkdir "$1" && cd "$1"
 }
