@@ -3,3 +3,6 @@ Backups of my dotfiles. Fairly self-explanatory. I am working to make this
 cross-platform. 
 
 (Note that ~/.vimrc has a symlink at ~/.config/nvim/init.vim.) 
+
+## Other helpful things
+`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`

@@ -1,13 +1,19 @@
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 call plug#end()
 
 if has('nvim')
-	let tokyonight_style = "night"
-	colorscheme tokyonight
+    let tokyonight_style = "night"
+    colorscheme tokyonight
 else
-	colorscheme iceberg
+    colorscheme iceberg
 endif
 
 " tabs
@@ -53,12 +59,12 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " persistent undo
 if has('persistent_undo') && has('nvim')
-	let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/') 
-	if !isdirectory(target_path)
-		call mkdir(target_path, "", 0700)
-	endif
-	let &undodir = target_path 
-	set undofile
+    let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/') 
+    if !isdirectory(target_path)
+        call mkdir(target_path, "", 0700)
+    endif
+    let &undodir = target_path 
+    set undofile
 endif
 
 " leader 
@@ -78,14 +84,14 @@ set foldmethod=indent
 
 " use <Tab> for trigger completion with coc.nvim
 function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~ '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 inoremap <silent><expr> <Tab>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<Tab>" :
-			\ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
 
 " map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>

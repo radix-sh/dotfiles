@@ -1,0 +1,7 @@
+[alias]
+    s = status
+    br = branch
+    co = checkout
+[user]
+	name = Radish
+	email = 53844660+radixsh@users.noreply.github.com
