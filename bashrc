@@ -1,5 +1,3 @@
-# bashrc 
-
 # prompt
 GREEN="\[\033[0;32m\]"
 CYAN="\[\033[0;36m\]"
