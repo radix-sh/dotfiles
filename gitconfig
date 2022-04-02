@@ -5,3 +5,6 @@
 [user]
 	name = Radish
 	email = 53844660+radixsh@users.noreply.github.com
+	signingkey = FFFA66E400E9AE0B
+[commit]
+	gpgsign = true
