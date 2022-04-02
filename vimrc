@@ -59,7 +59,7 @@ au BufRead,BufNewFile *.gs set filetype=javascript
 " preserve last editing position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-" persistent_undo 
+" persistent_undo: https://stackoverflow.com/a/22676189
 if has('persistent_undo')
     let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/') 
     if !isdirectory(target_path)
