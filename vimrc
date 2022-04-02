@@ -7,21 +7,14 @@ endif
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'itchyny/lightline.vim'
 call plug#end()
 
-if has('nvim')
-    let tokyonight_style = "night"
-    colorscheme tokyonight
-else
-    colorscheme iceberg
-endif
+colorscheme iceberg
 
 " tabs
 set tabstop=4           " set number of spaces to display for <Tab>
 set shiftwidth=4        " set number of spaces for a shift operation (>> or <<) 
-" set softtabstop=4       " set number of columns for a <Tab> 
 set expandtab           " expand <Tab>s to spaces
 set autoindent          " indent next line as same as current line
 set smartindent         " use code syntax/style to align  
@@ -35,7 +28,7 @@ set hlsearch            " highlight searches
 set incsearch           " search as you type 
 set colorcolumn=80
 set textwidth=80
-set wrapmargin=2
+" set wrapmargin=2
 syntax on
 set number
 set clipboard=unnamed   " unnamedplus for linux
@@ -62,6 +55,9 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " persistent_undo: https://stackoverflow.com/a/22676189
 if has('persistent_undo')
     let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/') 
+    if has('nvim')
+        let target_path = expand('~/.config/undo/')
+    endif
     if !isdirectory(target_path)
         call mkdir(target_path, "", 0700)
     endif
