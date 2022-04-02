@@ -1,3 +1,4 @@
+" get vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -40,13 +41,13 @@ set number
 set clipboard=unnamed   " unnamedplus for linux
 set cursorline
 set showmode showcmd
-set laststatus=2        " permanent status bar  
 autocmd BufReadPost *bash* set syntax=sh
 set encoding=utf-8
 set visualbell
 set nobackup
 set autochdir           " automatically change working directory 
-set autoread
+
+" autoread: https://stackoverflow.com/a/20418591
 autocmd FocusGained,BufEnter * :silent! !
 
 " makefile settings
@@ -58,8 +59,8 @@ au BufRead,BufNewFile *.gs set filetype=javascript
 " preserve last editing position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-" persistent undo
-if has('persistent_undo') && has('nvim')
+" persistent_undo 
+if has('persistent_undo')
     let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/') 
     if !isdirectory(target_path)
         call mkdir(target_path, "", 0700)
@@ -94,7 +95,9 @@ inoremap <silent><expr> <Tab>
             \ <SID>check_back_space() ? "\<Tab>" :
             \ coc#refresh()
 
-" map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-" map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-set noshowmode " because lightline
+" lightline
+set laststatus=2        " permanent status bar; also makes lightline work
+set noshowmode          " because lightline
+let g:lightline = {
+            \ 'colorscheme': 'deus',
+            \ }
