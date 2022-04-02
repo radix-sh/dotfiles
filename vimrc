@@ -7,6 +7,7 @@ endif
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
 if has('nvim')
@@ -95,3 +96,5 @@ inoremap <silent><expr> <Tab>
 
 " map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+set noshowmode " because lightline
