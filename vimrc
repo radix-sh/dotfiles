@@ -97,3 +97,5 @@ set noshowmode          " because lightline
 let g:lightline = {
             \ 'colorscheme': 'deus',
             \ }
+" reduce lag switching to normal mode: https://github.com/itchyny/lightline.vim/issues/389
+set ttimeout ttimeoutlen=50
