@@ -27,7 +27,7 @@ set showmatch           " highlight matching [], {}, ()
 set hlsearch            " highlight searches
 set incsearch           " search as you type 
 set colorcolumn=80
-set textwidth=80
+" set textwidth=80
 " set wrapmargin=2
 syntax on
 set number
