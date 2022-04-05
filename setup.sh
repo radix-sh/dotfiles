@@ -34,4 +34,24 @@ echo "Installing iceberg.vim..."
 curl -o ~/.vim/colors/iceberg.vim \
     --create-dirs https://raw.githubusercontent.com/cocopon/iceberg.vim/master/colors/iceberg.vim
 
+# gdb: https://dev.to/jasonelwood/setup-gdb-on-macos-in-2020-489k
+brew install gdb
+: '
+Launch Keychain Access application: Applications > Utilities > Keychain Access.
+From the Keychains list on the left, right-click on the System item and select Unlock Keychain "System".
+From the toolbar, go to Keychain Access > Certificate Assistant > Create a Certificate.
+Choose a name (e.g. gdb-cert).
+Set Identity Type to Self Signed Root.
+Set Certificate Type to Code Signing.
+Check the Let me override defaults checkbox.
+At this point, you can go on with the installation process until you get the Specify a Location For The Certificate dialogue box. Here you need to set Keychain to System. Finally, you can click on the Create button.
+After these steps, you can see the new certificate under System keychains. From the contextual menu of the newly created certificate (right-click on it) select the Get info option. In the dialogue box, expand  
+the Trust item and set Code signing to Always Trust.
+Then, from the Keychains list on the left, right-click on the System item and select Lock Keychain "System".
+Finally, reboot your system.
+'
+
+gdb_path=$(which gdb)
+codesign --entitlements gdb-entitlement.xml -fs gdb-cert $gdb_path
+echo "set startup-with-shell off" >> ~/.gdbinit
 
