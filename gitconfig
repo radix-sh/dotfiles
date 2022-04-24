@@ -2,6 +2,7 @@
     s = status
     br = branch
     co = checkout
+	lg = log --graph --decorate --all --oneline
 [user]
 	name = Radish
 	email = 53844660+radixsh@users.noreply.github.com
