@@ -67,9 +67,10 @@ alias l='ls'
 alias la='ls -a'
 alias lt='ls -lt'
 alias 'lg'='git log --color --graph --pretty --abbrev-commit'
+alias python=python3
 
 # bash functions
-function mkcd () {
+function mkcd() {
     mkdir "$1" && cd "$1"
 }
 
@@ -77,4 +78,32 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-clear
+function prefix() {
+    if (($# != 2)); then 
+        echo "Usage: prefix target(s) prefix-to-add"
+        echo "Remember to escape special characters (\* instead of *)!\n"
+        return;
+    fi
+
+    echo "Remember to escape special characters (\* instead of *)!\n"
+    echo "Files targeted: $1"
+    echo $1
+    echo "Prefix to add: $2"
+    first_file = $($1 | head -n1)
+    echo "E.g., $first_file)"
+ 
+    # https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script
+    while true; do
+        read -p "Continue? " choice 
+        case $choice in
+            [Yy]* ) echo "Commencing the ritual..."; break;;
+            [Nnq]* ) echo "No changes made"; return;; 
+            * ) echo "Invalid";;
+        esac
+    done
+
+    for filename in $1; do 
+        echo "Renaming $filename to $2${filename}"
+        mv "$filename" "$2${filename}"; 
+    done
+}
