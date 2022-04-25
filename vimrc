@@ -6,21 +6,40 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-" make it easy to install LSPs
-" LSP servers are placed at $HOME/.local/share/vim-lsp-settings/servers
-Plug 'mattn/vim-lsp-settings'
+" Plug 'ghifarit53/tokyonight-vim'
+" install LSP servers to $HOME/.local/share/vim-lsp-settings/servers
+" Plug 'mattn/vim-lsp-settings'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " provide :ClangFormat (mapped to <Leader>f) for C/C-style formatting in vim
 Plug 'rhysd/vim-clang-format'
-call plug#end()
 
+Plug 'psf/black'
+
+call plug#end()
 
 "
 " general settings
 "
+"
+
+" colorscheme
+colorscheme tokyonight 
+" insert this into colorscheme source file if colorcolumn is ugly
+" (color 236 picked from https://www.ditig.com/256-colors-cheat-sheet)
+" highlight ColorColumn ctermbg=236 ctermfg=NONE 
+
+
+" lightline
+set laststatus=2        " permanent status bar; also makes lightline work
+set noshowmode          " because lightline
+let g:lightline = {
+            \ 'colorscheme': 'deus',
+            \ }
+" reduce lag switching to normal mode
+" https://github.com/itchyny/lightline.vim/issues/389
+set ttimeout ttimeoutlen=50
+
 
 " folding
 " autocmd FileType c setlocal foldmethod=syntax
@@ -29,7 +48,7 @@ call plug#end()
 autocmd BufRead * normal zR
 set foldnestmax=3
 set foldlevel=1
-set foldmethod=syntax   " indent
+set foldmethod=syntax   
 set foldcolumn=1        " adds a column on the left to show folded lines
 
 " tabs
@@ -48,13 +67,15 @@ autocmd Filetype cpp setlocal tabstop=2 shiftwidth=2 softtabstop=2
 set cinoptions+=g1,h1   " indent private/public keywords one space
 
 " things I tinker with
-colorscheme iceberg
 set showmatch           " highlight matching [], {}, ()
 set hlsearch            " highlight searches
 set incsearch           " search as you type
 set textwidth=80
 set wrapmargin=2
 set visualbell
+if (has("termguicolors"))
+    set termguicolors
+endif
 
 " things I take for granted
 syntax on
@@ -63,6 +84,8 @@ set cursorline
 set colorcolumn=80
 set nobackup
 set clipboard=unnamed   " only works for macOS :(
+set termguicolors
+set background=dark
 set autochdir           " automatically change working directory
 " autoread: https://stackoverflow.com/a/20418591
 autocmd FocusGained,BufEnter * :silent! !
@@ -157,16 +180,6 @@ nmap <leader>f  <Plug>(coc-format-selected)
 " add `:Format` command to format current buffer
 command! -nargs=0 Format :call CocActionAsync('format')
 
-" lightline
-set laststatus=2        " permanent status bar; also makes lightline work
-set noshowmode          " because lightline
-let g:lightline = {
-            \ 'colorscheme': 'deus',
-            \ }
-" reduce lag switching to normal mode
-" https://github.com/itchyny/lightline.vim/issues/389
-set ttimeout ttimeoutlen=50
-
 " clang-format
 let g:clang_format#style_options = {
             \ "Language" : "Cpp",
@@ -175,5 +188,14 @@ let g:clang_format#style_options = {
             \ "AllowShortIfStatementsOnASingleLine" : "Never",
             \ "AllowShortLoopsOnASingleLine" : "false",
             \ }
-" use <Leader>f to automatically run clang-format on the currently open file
-autocmd FileType c,cpp,objc noremap <Leader>F :ClangFormat<CR>
+" use <Leader>F to automatically run clang-format on the currently open file
+autocmd FileType c,cpp,objc noremap <Leader>f :ClangFormat<CR>
+
+" 
+" filetype-specific settings
+"
+
+" python
+autocmd FileType py setlocal foldmethod=indent
+autocmd FileType py noremap <Leader>f :Black<CR>
+
