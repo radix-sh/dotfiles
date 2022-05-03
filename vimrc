@@ -18,16 +18,17 @@ set shiftwidth=4        " set number of spaces for a shift operation (>> or <<)
 set expandtab           " expand <Tab>s to spaces
 set autoindent          " indent next line as same as current line
 set smartindent         " use code syntax/style to align  
-filetype plugin indent on
 set cindent
-set cinoptions=(0,u0,U0
+filetype plugin indent on
+set cinoptions=(0,u0,U0,(0
 " https://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
-set cino+=(0            " align parameters if they go across lines 
+" :w
+set cinoptions+=(0            " align parameters if they go across lines 
+set cinwords+=for,if
 
 " folding 
-autocmd FileType py setlocal foldmethod=indent
 autocmd BufRead * normal zR
-set foldnestmax=1
+set foldnestmax=2
 set foldlevel=0
 set foldmethod=syntax
 
@@ -70,7 +71,6 @@ if has('persistent_undo')
 endif
 
 
-
 " 
 " Plugin settings
 "
@@ -100,7 +100,8 @@ let g:clang_format#style_options = {
             \ "Standard" : "C++11",
             \ "BasedOnStyle" : "Google",
             \ "AllowShortIfStatementsOnASingleLine" : "false",
-            \ "AllowShortLoopsOnASingleLine" : "false"}
+            \ "AllowShortLoopsOnASingleLine" : "false",
+            \ "ReflowComments" : "true"}
 
 " remove trailing whitespaces
 " https://vi.stackexchange.com/questions/454/whats-the-simplest-way-to-strip-trailing-whitespace-from-all-lines-in-a-file
@@ -121,4 +122,6 @@ autocmd BufWritePre *.c,*.cc,*.cpp call TrimWhitespace()
 autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 " syntax-highlight google scripts like javascript
 au BufRead,BufNewFile *.gs set filetype=javascript
+autocmd FileType py setlocal foldmethod=indent
 autocmd FileType c,cpp set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType cpp noremap <Leader>f :ClangFormat<CR>
