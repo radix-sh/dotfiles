@@ -2,7 +2,7 @@
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    au VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin()
@@ -10,7 +10,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'rhysd/vim-clang-format'
 call plug#end()
-
 
 " tabs
 set tabstop=4           " set number of spaces to display for <Tab>
@@ -22,21 +21,22 @@ set cindent
 filetype plugin indent on
 set cinoptions=(0,u0,U0,(0
 " https://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
-" :w
-set cinoptions+=(0            " align parameters if they go across lines 
+set cinoptions+=(0      " align parameters if they go across lines 
 set cinwords+=for,if
+au FileType c,cpp set tabstop=2 shiftwidth=2 softtabstop=2
+au FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 
 " folding 
-autocmd BufRead * normal zR
+au BufRead * normal zR
 set foldnestmax=2
 set foldlevel=0
 set foldmethod=syntax
+au FileType py set foldmethod=indent
 
 " general settings 
 colorscheme iceberg
+syntax on
 let mapleader = " "
-" paste below current line
-nmap <leader>p o<ESC>p
 set showmode showcmd
 set showmatch           " highlight matching [], {}, () 
 set hlsearch            " highlight searches
@@ -44,19 +44,21 @@ set incsearch           " search as you type
 set colorcolumn=80
 set textwidth=80
 set wrapmargin=2
-syntax on
 " preserve last editing position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 set number
 set clipboard=unnamed   " unnamedplus for linux
 set cursorline
-autocmd BufReadPost *bash* set syntax=sh
+au BufReadPost *bash* set syntax=sh
 set encoding=utf-8
 set nobackup
 set autochdir           " automatically change working directory 
 set backspace=indent,eol,start
 " autoread: https://stackoverflow.com/a/20418591
-autocmd FocusGained,BufEnter * :silent! !
+au FocusGained,BufEnter * :silent! !
+" paste below current line
+nmap <leader>p o<ESC>p
+
 " persistent_undo: https://stackoverflow.com/a/22676189
 if has('persistent_undo')
     let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/') 
@@ -69,7 +71,6 @@ if has('persistent_undo')
     let &undodir = target_path 
     set undofile
 endif
-
 
 " 
 " Plugin settings
@@ -102,6 +103,7 @@ let g:clang_format#style_options = {
             \ "AllowShortIfStatementsOnASingleLine" : "false",
             \ "AllowShortLoopsOnASingleLine" : "false",
             \ "ReflowComments" : "true"}
+au FileType cpp noremap <Leader>f :ClangFormat<CR>
 
 " remove trailing whitespaces
 " https://vi.stackexchange.com/questions/454/whats-the-simplest-way-to-strip-trailing-whitespace-from-all-lines-in-a-file
@@ -112,16 +114,4 @@ fun! TrimWhitespace()
     call winrestview(l:save)
 endfun
 noremap <Leader>W :call TrimWhitespace()<CR>
-autocmd BufWritePre *.c,*.cc,*.cpp call TrimWhitespace()
-
-" 
-" File-specific settings
-"
-
-" makefile settings
-autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
-" syntax-highlight google scripts like javascript
-au BufRead,BufNewFile *.gs set filetype=javascript
-autocmd FileType py setlocal foldmethod=indent
-autocmd FileType c,cpp set tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType cpp noremap <Leader>f :ClangFormat<CR>
+au BufWritePre *.c,*.cc,*.cpp call TrimWhitespace()
