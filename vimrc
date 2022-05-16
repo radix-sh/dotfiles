@@ -9,6 +9,7 @@ call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'rhysd/vim-clang-format'
+Plug 'gkeep/iceberg-dark'
 call plug#end()
 
 " tabs
