@@ -1,3 +1,9 @@
 [submodule "vim/plugged/coc.nvim"]
 	path = vim/plugged/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
+[submodule "vim/plugged/lightline.vim"]
+	path = vim/plugged/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
+[submodule "vim/plugged/vim-clang-format"]
+	path = vim/plugged/vim-clang-format
+	url = https://github.com/rhysd/vim-clang-format
