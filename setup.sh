@@ -56,3 +56,14 @@ Then, from the Keychains list on the left, right-click on the System item and se
 Finally, reboot your system.
 '
 
+<<<<<<< HEAD
+=======
+# gdb_path=$(which gdb)
+# codesign --entitlements gdb-entitlement.xml -fs gdb-cert $gdb_path
+# echo "set startup-with-shell off" >> ~/.gdbinit
+
+# Set up git
+git config --global alias.s status
+git config --global alias.br branch
+git config credential.helper store
+>>>>>>> e0a967e8212c16abce2546d08c70100a5e561e6c
