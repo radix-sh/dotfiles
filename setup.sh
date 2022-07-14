@@ -1,11 +1,10 @@
-# get brew
+# Get brew
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# use brew
 # brew install node
 # brew install neovim
 
-# overwrite dotfiles
+# Overwrite dotfiles
 while true; do
     read -p "Are you sure you want to overwrite all current dotfiles? " input
     case $input in 
@@ -54,3 +53,8 @@ Finally, reboot your system.
 # gdb_path=$(which gdb)
 # codesign --entitlements gdb-entitlement.xml -fs gdb-cert $gdb_path
 # echo "set startup-with-shell off" >> ~/.gdbinit
+
+# Set up git
+git config --global alias.s status
+git config --global alias.br branch
+git config credential.helper store
