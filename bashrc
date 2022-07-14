@@ -16,7 +16,7 @@ RESTORE="\[\033[0m\]"
 if [[ $OSTYPE == 'darwin'* ]]; then
     export PS1="${GREEN}\w${BRIGHT_BLUE}\$(parse_git_branch)${RESTORE} 🌈 "
 else
-    export PS1="${GREEN}\w${BROWN}\$(parse_git_branch)${RESTORE} $ "
+    export PS1="${BRIGHT_PURPLE}\w${CYAN}\$(parse_git_branch)${RESTORE} $ "
 fi
 
 # basic config
@@ -67,7 +67,6 @@ alias l='ls'
 alias la='ls -a'
 alias lt='ls -lt'
 alias 'lg'='git log --color --graph --pretty --abbrev-commit'
-alias python=python3
 
 # bash functions
 function mkcd() {
