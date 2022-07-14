@@ -16,7 +16,7 @@ RESTORE="\[\033[0m\]"
 if [[ $OSTYPE == 'darwin'* ]]; then
     export PS1="${GREEN}\w${BRIGHT_BLUE}\$(parse_git_branch)${RESTORE} 🌈 "
 else
-    export PS1="${GREEN}\w${BROWN}${RESTORE} $ "
+    export PS1="${GREEN}\w${BROWN}\$(parse_git_branch)${RESTORE} $ "
 fi
 
 # basic config
