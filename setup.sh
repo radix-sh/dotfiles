@@ -1,11 +1,18 @@
-# get brew
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# If MacOS
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    # Get brew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # Use brew
+    brew install node
+    brew install neovim
+    # https://dev.to/jasonelwood/setup-gdb-on-macos-in-2020-489k
+    brew install gdb
+    # gdb_path=$(which gdb)
+    # codesign --entitlements gdb-entitlement.xml -fs gdb-cert $gdb_path
+    # echo "set startup-with-shell off" >> ~/.gdbinit
+fi
 
-# use brew
-# brew install node
-# brew install neovim
-
-# overwrite dotfiles
+# Overwrite dotfiles
 while true; do
     read -p "Are you sure you want to overwrite all current dotfiles? " input
     case $input in 
@@ -30,12 +37,10 @@ done
 echo
 
 # iceberg.vim
-# echo "Installing iceberg.vim..."
-# curl -o ~/.vim/colors/iceberg.vim \
-#     --create-dirs https://raw.githubusercontent.com/cocopon/iceberg.vim/master/colors/iceberg.vim
+echo "Installing iceberg.vim..."
+curl -o ~/.vim/colors/iceberg.vim \
+     --create-dirs https://raw.githubusercontent.com/cocopon/iceberg.vim/master/colors/iceberg.vim
 
-# gdb: https://dev.to/jasonelwood/setup-gdb-on-macos-in-2020-489k
-# brew install gdb
 : '
 Launch Keychain Access application: Applications > Utilities > Keychain Access.
 From the Keychains list on the left, right-click on the System item and select Unlock Keychain "System".
@@ -51,6 +56,3 @@ Then, from the Keychains list on the left, right-click on the System item and se
 Finally, reboot your system.
 '
 
-# gdb_path=$(which gdb)
-# codesign --entitlements gdb-entitlement.xml -fs gdb-cert $gdb_path
-# echo "set startup-with-shell off" >> ~/.gdbinit
