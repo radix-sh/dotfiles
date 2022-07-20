@@ -1,4 +1,5 @@
 # If MacOS
+# https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
 if [[ "${OSTYPE}" == "darwin"* ]]; then
     # Get brew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -13,12 +14,15 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 fi
 
 # Overwrite dotfiles
+files=("bash_profile" "bashrc" "vimrc")
+printf '%s\n' "To be overwritten: 
+${files[@]}
+"
 while true; do
     read -p "Are you sure you want to overwrite all current dotfiles? " input
     case $input in 
         y | Y) 
             echo "Setting up new dotfiles..."
-            files=("bash_profile" "bashrc" "vimrc")
             for str in ${files[@]}; do 
                 echo "Replacing ~/.$str"
                 rm ~/.$str
