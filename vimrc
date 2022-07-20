@@ -36,6 +36,7 @@ au FileType py set foldmethod=indent
 
 " general settings 
 colorscheme iceberg
+set background="dark"
 syntax on
 let mapleader = " "
 set showmode showcmd
