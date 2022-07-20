@@ -36,9 +36,6 @@ HISTFILESIZE=
 HISTSIZE=
 export HISTCONTROL HISTFILESIZE HISTSIZE BASH_SILENCE_DEPRECATION_WARNING
 
-# Make pinentry work for unlocking GPG keys
-export GPG_TTY=$(tty)
-
 # Make path
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 PATH="/usr/local/opt/coreutils/libexec/gnubin/:$PATH"
@@ -70,13 +67,19 @@ alias la='ls -a'
 alias lt='ls -lt'
 alias 'lg'='git log --color --graph --pretty --abbrev-commit'
 
-# Functions
-function mkcd() {
-    mkdir "$1" && cd "$1"
-}
+# To fix gpg failed to sign data error:
+# https://stackoverflow.com/questions/41052538/git-error-gpg-failed-to-sign-data
+gpgconf --kill gpg-agent
+# Make pinentry work for unlocking GPG keys
+export GPG_TTY=$(tty)
 
+# Functions
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+function mkcd() {
+    mkdir "$1" && cd "$1"
 }
 
 function prefix() {
