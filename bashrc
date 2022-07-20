@@ -13,13 +13,15 @@ BRIGHT_PURPLE="\[\033[1;35m\]"
 YELLOW="\[\033[1;33m\]"
 WHITE="\[\033[1;37m\]"
 RESTORE="\[\033[0m\]"
-if [[ $OSTYPE == 'darwin'* ]]; then
+if [[ $OSTYPE == 'darwin'* ]]; then  # MacOS
     export PS1="${GREEN}\w${BRIGHT_BLUE}\$(parse_git_branch)${RESTORE} 🌈 "
-else
+    echo $OSTYPE
+else if grep -qi microsoft /proc/version; then  # WSL
     export PS1="${BRIGHT_PURPLE}\w${CYAN}\$(parse_git_branch)${RESTORE} $ "
+    alias open='explorer.exe'
 fi
 
-# basic config
+# Basic config
 CC="/usr/local/bin/gcc-10"
 CLICOLOR=1
 CXX="/usr/local/bin/g++-10"
@@ -27,17 +29,17 @@ EDITOR="/usr/local/bin/nvim"
 LSCOLORS="gxcxBxDxexxxxxaBxBhghGh"
 export CC CLICOLOR CXX EDITOR LSCOLORS 
 
-# bash settings
+# Bash settings
 BASH_SILENCE_DEPRECATION_WARNING=1
 HISTCONTROL=erasedups
 HISTFILESIZE=
 HISTSIZE=
 export HISTCONTROL HISTFILESIZE HISTSIZE BASH_SILENCE_DEPRECATION_WARNING
 
-# make pinentry work for unlocking GPG keys
+# Make pinentry work for unlocking GPG keys
 export GPG_TTY=$(tty)
 
-# make path
+# Make path
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 PATH="/usr/local/opt/coreutils/libexec/gnubin/:$PATH"
 PATH=$PATH:$HOME/Library/Python/3.9/bin/
@@ -56,7 +58,7 @@ fi
 
 if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi
 
-# bash aliases
+# Aliases
 alias p='python3'
 alias c='gcc -g -Wall -Werror'
 alias killgdb='pkill -9 gdb'
@@ -68,7 +70,7 @@ alias la='ls -a'
 alias lt='ls -lt'
 alias 'lg'='git log --color --graph --pretty --abbrev-commit'
 
-# bash functions
+# Functions
 function mkcd() {
     mkdir "$1" && cd "$1"
 }
