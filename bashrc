@@ -1,4 +1,4 @@
-# prompt
+# Prompt
 GREEN="\[\033[0;32m\]"
 CYAN="\[\033[0;36m\]"
 RED="\[\033[0;31m\]"
@@ -16,9 +16,10 @@ RESTORE="\[\033[0m\]"
 if [[ $OSTYPE == 'darwin'* ]]; then  # MacOS
     export PS1="${GREEN}\w${BRIGHT_BLUE}\$(parse_git_branch)${RESTORE} 🌈 "
     echo $OSTYPE
-else if grep -qi microsoft /proc/version; then  # WSL
+else if grep -qi "microsoft" /proc/version; then  # WSL
     export PS1="${BRIGHT_PURPLE}\w${CYAN}\$(parse_git_branch)${RESTORE} $ "
     alias open='explorer.exe'
+fi
 fi
 
 # Basic config
@@ -74,7 +75,7 @@ gpgconf --kill gpg-agent
 export GPG_TTY=$(tty)
 
 # Functions
-parse_git_branch() {
+function parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
@@ -95,7 +96,7 @@ function prefix() {
     echo "Prefix to add: $2"
     first_file = $($1 | head -n1)
     echo "E.g., $first_file)"
- 
+
     # https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script
     while true; do
         read -p "Continue? " choice 

@@ -48,6 +48,8 @@ echo "Installing iceberg.vim..."
 curl -o ~/.vim/colors/iceberg.vim \
      --create-dirs https://raw.githubusercontent.com/cocopon/iceberg.vim/master/colors/iceberg.vim
 
+echo -e "Don't forget to run :PlugInstall in vim"
+
 # Set up git
 git config --global alias.s status
 git config --global alias.br branch
