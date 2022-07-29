@@ -1,6 +1,7 @@
 # If MacOS
 # https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
 if [[ "${OSTYPE}" == "darwin"* ]]; then
+    echo -e "Getting/using brew requires authentication"
     # Get brew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     # Use brew
