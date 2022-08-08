@@ -13,5 +13,6 @@
 	defaultBranch = main
 [core]
 	excludesFile = ~/.gitignore
+	editor = vim
 [credential]
 	helper = store
