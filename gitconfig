@@ -1,15 +1,17 @@
 [alias]
-    s = status
-    br = branch
+	s = status
+	br = branch
     co = checkout
 	lg = log --graph --decorate --all --oneline
 [user]
 	name = Radish
 	email = 53844660+radixsh@users.noreply.github.com
-	signingkey = 48209E0C41B96086
+	signingkey = 3B2D9E74F4D9D288
 [commit]
 	gpgsign = true
 [init]
 	defaultBranch = main
 [core]
 	excludesFile = ~/.gitignore
+[credential]
+	helper = store
