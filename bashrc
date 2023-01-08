@@ -13,10 +13,12 @@ BRIGHT_PURPLE="\[\033[1;35m\]"
 YELLOW="\[\033[1;33m\]"
 WHITE="\[\033[1;37m\]"
 RESTORE="\[\033[0m\]"
-if [[ $OSTYPE == 'darwin'* ]]; then  # MacOS
+# MacOS
+if [[ $OSTYPE == 'darwin'* ]]; then
     export PS1="${GREEN}\w${BRIGHT_BLUE}\$(parse_git_branch)${RESTORE} 🌈 "
     echo $OSTYPE
-else if grep -qi "microsoft" /proc/version; then  # WSL
+# WSL
+else if grep -qi "microsoft" /proc/version; then
     export PS1="${BRIGHT_PURPLE}\w${CYAN}\$(parse_git_branch)${RESTORE} $ "
     alias open='explorer.exe'
 fi
@@ -26,7 +28,7 @@ fi
 CC="/usr/local/bin/gcc-10"
 CLICOLOR=1
 CXX="/usr/local/bin/g++-10"
-EDITOR="/usr/local/bin/nvim"
+EDITOR="/usr/local/bin/vim"
 LSCOLORS="gxcxBxDxexxxxxaBxBhghGh"
 export CC CLICOLOR CXX EDITOR LSCOLORS 
 
@@ -43,18 +45,15 @@ PATH="/usr/local/opt/coreutils/libexec/gnubin/:$PATH"
 PATH=$PATH:$HOME/Library/Python/3.9/bin/
 export PATH=$PATH:$HOME/bin
 
-if type brew &>/dev/null; then
-    for COMPLETION in $(brew --prefix)/etc/bash_completion.d/*
-    do
-        [[ -f $COMPLETION ]] && source "$COMPLETION"
-    done
-    if [[ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]];
-    then
-        source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-    fi
-fi
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-if [ -f ~/.git-completion.bash ]; then . ~/.git-completion.bash; fi
+# Functions
+function parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+function mkcd() {
+    mkdir "$1" && cd "$1"
+}
 
 # Aliases
 alias p='python3'
@@ -71,44 +70,6 @@ alias 'lg'='git log --color --graph --pretty --abbrev-commit'
 # To fix gpg failed to sign data error:
 # https://stackoverflow.com/questions/41052538/git-error-gpg-failed-to-sign-data
 gpgconf --kill gpg-agent
+
 # Make pinentry work for unlocking GPG keys
 export GPG_TTY=$(tty)
-
-# Functions
-function parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-function mkcd() {
-    mkdir "$1" && cd "$1"
-}
-
-function prefix() {
-    if (($# != 2)); then 
-        echo "Usage: prefix target(s) prefix-to-add"
-        echo "Remember to escape special characters (\* instead of *)!\n"
-        return;
-    fi
-
-    echo "Remember to escape special characters (\* instead of *)!\n"
-    echo "Files targeted: $1"
-    echo $1
-    echo "Prefix to add: $2"
-    first_file = $($1 | head -n1)
-    echo "E.g., $first_file)"
-
-    # https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script
-    while true; do
-        read -p "Continue? " choice 
-        case $choice in
-            [Yy]* ) echo "Commencing the ritual..."; break;;
-            [Nnq]* ) echo "No changes made"; return;; 
-            * ) echo "Invalid";;
-        esac
-    done
-
-    for filename in $1; do 
-        echo "Renaming $filename to $2${filename}"
-        mv "$filename" "$2${filename}"; 
-    done
-}
