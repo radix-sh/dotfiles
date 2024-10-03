@@ -10,7 +10,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'rhysd/vim-clang-format'
 Plug 'gkeep/iceberg-dark'
-Plug 'git-time-metric/gtm-vim-plugin'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " Tabs
@@ -19,27 +19,26 @@ set shiftwidth=4        " Set number of spaces for a shift operation (>> or <<)
 set expandtab           " Expand <Tab>s to spaces
 set autoindent          " Indent next line as same as current line
 set smartindent         " Use code syntax/style to align  
-set cindent
 filetype plugin indent on
-set cinoptions=(0,u0,U0,(0
 " https://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
-set cinoptions+=(0      " Align parameters if they go across lines 
-set cinwords+=for,if
-au FileType c,cpp set tabstop=2 shiftwidth=2 softtabstop=2
+au FileType c,cpp set cindent cinoptions=(0,u0,U0,(0 cinwords+=for,if
+au FileType c,cpp set tabstop=4 shiftwidth=4 softtabstop=4
 au FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
+au FileType markdown set softtabstop=4 noexpandtab
 
 " Folding 
 au BufRead * normal zR
-set foldnestmax=2
+set foldnestmax=10
 set foldlevel=0
 set foldmethod=syntax
-au FileType py set foldmethod=indent
+au FileType python set foldmethod=indent
 
 " General settings 
 colorscheme iceberg
 set background="dark"
 syntax on
 let mapleader = " "
+let maplocalleader=","
 set showmode showcmd
 set showmatch           " highlight matching [], {}, () 
 set hlsearch            " highlight searches
@@ -79,15 +78,23 @@ endif
 " Plugin settings
 "
 
-" use <Tab> for trigger completion with coc.nvim
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <silent><expr> <Tab>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<Tab>" :
-            \ coc#refresh()
+
+
 
 " lightline
 set laststatus=2        " Permanent status bar; also makes lightline work
@@ -136,3 +143,5 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+au FileType *.pl set syntax prolog
