@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=("bash_profile" "bashrc" "gitconfig" "vimrc" "vim")
+files=("zshrc" "gitconfig" "vimrc")
 for str in ${files[@]}; do 
     echo "Comparing ~/.$str and $str..."
     diff -r ~/.$str $str
