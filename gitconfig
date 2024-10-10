@@ -6,9 +6,7 @@
 [user]
 	name = Radish
 	email = 53844660+radixsh@users.noreply.github.com
-	signingkey = 3B2D9E74F4D9D288
-[commit]
-	gpgsign = true
+	signingkey = A6490FA8FCE1386C
 [init]
 	defaultBranch = main
 [core]
@@ -16,3 +14,5 @@
 	editor = vim
 [credential]
 	helper = store
+[commit]
+	gpgsign = true
