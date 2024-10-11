@@ -59,7 +59,7 @@ set autochdir           " Automatically change working directory
 set backspace=indent,eol,start
 " au FocusGained,BufEnter * :silent! !    " https://stackoverflow.com/a/20418591
 set mouse=a             " https://stackoverflow.com/questions/32103591/vim-cant-scroll-in-iterm2
-" 
+"
 " https://stackoverflow.com/a/22676189
 if has('persistent_undo')
     let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/')
@@ -83,6 +83,13 @@ au FileType *.pl set syntax prolog
 " Paste below current line
 nmap <leader>p o<ESC>p
 
+" https://stackoverflow.com/questions/37552913/vim-how-to-keep-folds-on-save
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+
 " Remove trailing whitespaces
 " https://vi.stackexchange.com/questions/454/whats-the-simplest-way-to-strip-trailing-whitespace-from-all-lines-in-a-file
 " Equivalent to %s/\s\+$//ge
@@ -99,10 +106,8 @@ au BufWritePre *.c,*.cc,*.cpp call TrimWhitespace()
 "
 
 " Use tab for trigger completion with characters ahead and navigate
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ coc#pum#visible() ? coc#pum#insert():
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
@@ -115,7 +120,7 @@ endfunction
 
 " lightline
 set laststatus=2        " Permanent status bar; also makes lightline work
-set noshowmode          " Because lightline
+" set noshowmode          " Because lightline
 let g:lightline = {
             \ 'colorscheme': 'deus',
             \ }
