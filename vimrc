@@ -57,8 +57,9 @@ set encoding=utf-8
 set nobackup
 set autochdir           " Automatically change working directory
 set backspace=indent,eol,start
-au FocusGained,BufEnter * :silent! !    " https://stackoverflow.com/a/20418591
-
+" au FocusGained,BufEnter * :silent! !    " https://stackoverflow.com/a/20418591
+set mouse=a             " https://stackoverflow.com/questions/32103591/vim-cant-scroll-in-iterm2
+" 
 " https://stackoverflow.com/a/22676189
 if has('persistent_undo')
     let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/')
