@@ -5,7 +5,6 @@ zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 13
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
 ENABLE_CORRECTION="true"
 HYPHEN_INSENSITIVE="true"
 ZSH_THEME="agnoster"    # or: arrow, duellj, headline, powerline
@@ -16,11 +15,20 @@ plugins=(
   dotenv
 )
 
-# For uv (Python package manager for ECS 170)
-. "$HOME/.cargo/env"
-
 # https://stackoverflow.com/questions/62931101/i-have-multiple-files-of-zcompdump-why-do-i-have-multiple-files-of-these
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
+# No more brew :(
+# source /usr/local/brew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# eval "$(/usr/local/bin/brew shellenv)"
+# export HOMEBREW_NO_AUTO_UPDATE=1
+
 source $ZSH/oh-my-zsh.sh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/Users/radix/Library/Python/3.9/bin:$PATH"
+
+# coc for vim requires node/nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
