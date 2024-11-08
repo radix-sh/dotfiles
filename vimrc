@@ -46,6 +46,7 @@ set hlsearch            " Highlight searches
 set incsearch           " Search as you type
 set colorcolumn=80
 set textwidth=80
+set linebreak
 set wrapmargin=2
 " Preserve last editing position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -59,6 +60,8 @@ set autochdir           " Automatically change working directory
 set backspace=indent,eol,start
 " au FocusGained,BufEnter * :silent! !    " https://stackoverflow.com/a/20418591
 set mouse=a             " https://stackoverflow.com/questions/32103591/vim-cant-scroll-in-iterm2
+au FileType text set textwidth=0 syntax=markdown wrap nolist
+
 "
 " https://stackoverflow.com/a/22676189
 if has('persistent_undo')
