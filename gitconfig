@@ -13,6 +13,6 @@
 	excludesFile = ~/.gitignore
 	editor = vim
 [credential]
-	helper = store
-[commit]
-	gpgsign = true
+	helper = store 
+[diff]
+	tool = vimdiff
