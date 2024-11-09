@@ -86,11 +86,11 @@ au FileType *.pl set syntax prolog
 " Paste below current line
 nmap <leader>p o<ESC>p
 
-" https://stackoverflow.com/questions/37552913/vim-how-to-keep-folds-on-save
+" https://vi.stackexchange.com/questions/19326/vim-conceal-doesnt-work/19333#19333
 augroup remember_folds
   autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent! loadview
+  autocmd BufWinLeave ?* mkview | filetype detect
+  autocmd BufWinEnter ?* silent loadview | filetype detect 
 augroup END
 
 " Remove trailing whitespaces
