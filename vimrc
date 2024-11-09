@@ -87,10 +87,11 @@ au FileType *.pl set syntax prolog
 nmap <leader>p o<ESC>p
 
 " https://vi.stackexchange.com/questions/19326/vim-conceal-doesnt-work/19333#19333
-augroup remember_folds
+augroup RememberFolds
   autocmd!
-  autocmd BufWinLeave ?* mkview | filetype detect
-  autocmd BufWinEnter ?* silent loadview | filetype detect 
+  " https://vi.stackexchange.com/questions/13864/bufwinleave-mkview-with-unnamed-file-error-32
+  autocmd BufWinLeave,BufLeave,BufWritePost,BufHidden,QuitPre ?* nested silent! mkview!
+  autocmd BufWinEnter ?* silent! loadview
 augroup END
 
 " Remove trailing whitespaces
