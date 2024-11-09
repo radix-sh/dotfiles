@@ -1,10 +1,8 @@
-# If MacOS
+# If MacOS > 12
 # https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
 if [[ "${OSTYPE}" == "darwin"* ]]; then
     echo -e "Getting/using brew requires authentication"
-    # Get brew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    # brew install node
     # brew install neovim
 fi
 
@@ -37,6 +35,10 @@ while true; do
     esac
 done
 echo
+echo -e "Don't forget to run :PlugInstall in vim"
+
+# Install nodejs for coc in vim
+curl -sL install-node.vercel.app/lts | bash
 
 # Set up gpg keys
 # https://github.com/pstadler/keybase-gpg-github
@@ -45,5 +47,3 @@ gpg --list-secret-keys --keyid-format LONG
 echo -e "Then run:
 git config --global user.signingkey YOURKEYHERE
 "
-
-echo -e "Don't forget to run :PlugInstall in vim"
