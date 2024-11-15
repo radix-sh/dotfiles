@@ -19,10 +19,9 @@ set tabstop=4           " Set number of spaces to display for <Tab>
 set shiftwidth=4        " Set number of spaces for a shift operation (>> or <<)
 set expandtab           " Expand <Tab>s to spaces
 set autoindent          " Indent next line as same as current line
-set smartindent         " Use code syntax/style to align
 filetype plugin indent on
 " https://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
-au FileType c,cpp set cindent cinoptions=(0,u0,U0,(0 cinwords+=for,if
+au FileType c,cpp set smartindent cindent cinoptions=(0,u0,U0,(0 cinwords+=for,if
 au FileType c,cpp set tabstop=4 shiftwidth=4 softtabstop=4
 au FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
 au FileType markdown set softtabstop=4 noexpandtab
@@ -60,7 +59,8 @@ set autochdir           " Automatically change working directory
 set backspace=indent,eol,start
 " au FocusGained,BufEnter * :silent! !    " https://stackoverflow.com/a/20418591
 set mouse=a             " https://stackoverflow.com/questions/32103591/vim-cant-scroll-in-iterm2
-au FileType text set textwidth=0 syntax=markdown wrap nolist
+au FileType text set textwidth=0 syntax=markdown wrap nolist nojoinspaces
+au FileType markdown set nosmartindent nojoinspaces
 
 "
 " https://stackoverflow.com/a/22676189
