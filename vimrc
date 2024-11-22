@@ -16,8 +16,32 @@ Plug 'vim-python/python-syntax'
 Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
+" PaperColor colorscheme config (must be before colorscheme command)
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default': {
+  \       'transparent_background': 1,
+  \       'override': {
+  \         'folded_bg': ['#3a3a3a', ''],
+  \         'folded_fg': ['#a8a8a8', ''],
+  \       }
+  \     }
+  \   },
+  \   'language': {
+  \     'python': {
+  \       'highlight_builtins': 1
+  \     },
+  \     'cpp': {
+  \       'highlight_standard_library': 1
+  \     },
+  \     'c': {
+  \       'highlight_builtins': 1
+  \     }
+  \   }
+  \ }
+
 " General settings
-colorscheme PaperColor 
+colorscheme PaperColor
 set background=dark
 syntax on
 let mapleader = " "
@@ -146,5 +170,5 @@ au FileType cpp noremap <Leader>f :ClangFormat<CR>
 " https://stackoverflow.com/questions/8674387/vim-how-to-reload-syntax-highlighting#17189261
 noremap <Leader>r :syntax sync fromstart<CR>
 
-" For better Python syntax highlighting
+" Improve Python syntax highlighting
 let g:python_highlight_all = 1
