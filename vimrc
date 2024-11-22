@@ -11,30 +11,14 @@ Plug 'gkeep/iceberg-dark'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format'
+" Plug 'sheerun/vim-polyglot'
+Plug 'vim-python/python-syntax'
+Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
-" Tabs
-set tabstop=4           " Set number of spaces to display for <Tab>
-set shiftwidth=4        " Set number of spaces for a shift operation (>> or <<)
-set expandtab           " Expand <Tab>s to spaces
-set autoindent          " Indent next line as same as current line
-filetype plugin indent on
-" https://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
-au FileType c,cpp set smartindent cindent cinoptions=(0,u0,U0,(0 cinwords+=for,if
-au FileType c,cpp set tabstop=4 shiftwidth=4 softtabstop=4
-au FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
-au FileType markdown set softtabstop=4 noexpandtab
-
-" Folding
-au BufRead * normal zR
-set foldnestmax=10
-set foldlevel=0
-set foldmethod=syntax
-au FileType python set foldmethod=indent
-
 " General settings
-colorscheme iceberg
-set background="dark"
+colorscheme PaperColor 
+set background=dark
 syntax on
 let mapleader = " "
 let maplocalleader=","
@@ -61,8 +45,26 @@ set mouse=a             " https://stackoverflow.com/questions/32103591/vim-cant-
 au FileType text set textwidth=0 syntax=markdown wrap nolist nojoinspaces
 au FileType markdown set nosmartindent nojoinspaces
 
-"
-" https://stackoverflow.com/a/22676189
+" Tabs
+set tabstop=4           " Set number of spaces to display for <Tab>
+set shiftwidth=4        " Set number of spaces for a shift operation (>> or <<)
+set expandtab           " Expand <Tab>s to spaces
+set autoindent          " Indent next line as same as current line
+filetype plugin indent on
+" https://stackoverflow.com/questions/11984520/vim-indent-align-function-arguments
+au FileType c,cpp set smartindent cindent cinoptions=(0,u0,U0,(0 cinwords+=for,if
+au FileType c,cpp set tabstop=4 shiftwidth=4 softtabstop=4
+au FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
+au FileType markdown set softtabstop=4 noexpandtab
+
+" Folding
+au BufRead * normal zR
+set foldnestmax=10
+set foldlevel=0
+set foldmethod=syntax
+au FileType python set foldmethod=indent
+
+" Persistent undo: https://stackoverflow.com/a/22676189
 if has('persistent_undo')
     let target_path = expand('/tmp/.vim-undo-dir') " ~/.config/undo/')
     if has('nvim')
@@ -123,12 +125,12 @@ endfunction
 
 " lightline
 set laststatus=2        " Permanent status bar; also makes lightline work
-" set noshowmode          " Because lightline
+set noshowmode          " Because lightline
 let g:lightline = {
             \ 'colorscheme': 'deus',
             \ }
 " Reduce lag switching to normal mode: https://github.com/itchyny/lightline.vim/issues/389
-set ttimeout ttimeoutlen=50
+set ttimeout ttimeoutlen=10
 
 " clang-format
 let g:clang_format#style_options = {
@@ -143,3 +145,6 @@ au FileType cpp noremap <Leader>f :ClangFormat<CR>
 " Shortcut for reloading syntax highlighting:
 " https://stackoverflow.com/questions/8674387/vim-how-to-reload-syntax-highlighting#17189261
 noremap <Leader>r :syntax sync fromstart<CR>
+
+" For better Python syntax highlighting
+let g:python_highlight_all = 1
