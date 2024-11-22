@@ -11,7 +11,6 @@ Plug 'gkeep/iceberg-dark'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " Tabs
@@ -140,3 +139,7 @@ let g:clang_format#style_options = {
             \ "AllowShortLoopsOnASingleLine" : "false",
             \ "ReflowComments" : "true"}
 au FileType cpp noremap <Leader>f :ClangFormat<CR>
+
+" Shortcut for reloading syntax highlighting:
+" https://stackoverflow.com/questions/8674387/vim-how-to-reload-syntax-highlighting#17189261
+noremap <Leader>r :syntax sync fromstart<CR>
